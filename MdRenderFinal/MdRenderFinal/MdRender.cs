@@ -10,10 +10,12 @@ public class MdRender
     {
     }
 
-    public string RenderHtml(StringBuilder mdString)
+    public  string RenderHtml(StringBuilder mdString)
     {
         var paragraphJoin = new List<string>();
         var paragraphsSplit = SplitTextIntoParagraphs(mdString.ToString());
+        var markList = ConvertMarkdownListToHtml(paragraphsSplit);
+        paragraphsSplit = SplitTextIntoParagraphs(markList);
         foreach (var paragraph in paragraphsSplit)
         {
             StringBuilder sb = new StringBuilder(paragraph);
@@ -266,6 +268,57 @@ public class MdRender
         }
 
         return null;
+    }
+    
+    
+    public string ConvertMarkdownListToHtml(List<string> markdownLines)
+    {
+        StringBuilder html = new StringBuilder();
+        bool insideList = false;
+
+        for (int i = 0; i < markdownLines.Count; i++)
+        {
+            int leadingSpaces = GetLeadingSpaces(markdownLines[i]);
+            string trimmedLine = markdownLines[i].Trim();
+            
+            if (trimmedLine.StartsWith("-"))
+            {
+                if (!insideList)
+                {
+                    html.Append("<ul>\n");
+                    insideList = true;
+                }
+                html.Append(new string(' ', leadingSpaces + 2)); 
+                html.Append($"<li>{trimmedLine.Substring(1).Trim()}</li>\n");
+            }
+            else
+            {
+                if (insideList)
+                {
+                    html.Append("</ul>\n");
+                    insideList = false;
+                }
+                
+                html.Append($"{trimmedLine}\n");
+            }
+        }
+        
+        if (insideList)
+        {
+            html.Append("</ul>\n");
+        }
+
+        return html.ToString();
+    }
+
+    private int GetLeadingSpaces(string line)
+    {
+        int count = 0;
+        while (count < line.Length && line[count] == ' ')
+        {
+            count++;
+        }
+        return count;
     }
     
 }
