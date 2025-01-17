@@ -216,4 +216,10 @@ public class Tests
          var result = _mdRender.RenderHtml(sb);
          Assert.AreEqual(mdResult, result);
      }
+     public void Test26()
+     {
+         StringBuilder sb = new StringBuilder("_вв_пп__л__");
+         var result = _mdRender.RenderHtml(sb);
+         Assert.AreEqual("_вв_пп__л__", result);
+     }
 }

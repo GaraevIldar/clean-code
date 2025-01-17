@@ -1,17 +1,10 @@
-using System.Runtime.InteropServices;
+
 using System.Text;
-using System.Threading.Channels;
 
 namespace MdRenderFinal;
 
 public class MdRender
 {
-    public static void Main(string[] args)
-    {
-        var text = new StringBuilder("__aa__D_ddd__");
-        var md = new MdRender();
-        Console.WriteLine(md.RenderHtml(text));
-    }
 
     public  string RenderHtml(StringBuilder mdString)
     {
@@ -32,7 +25,7 @@ public class MdRender
 
     private static List<string> SplitTextIntoParagraphs(string text)
     {
-        var paragraphs = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        var paragraphs = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None); 
         return paragraphs.ToList();
     }
 
@@ -160,10 +153,6 @@ public class MdRender
 
     private static List<Tag> FilterAndModifyTags(List<Tag> tags)
     {
-        foreach (var h in tags)
-        {
-            Console.WriteLine(h.HtmlTag);
-        }
         int indexIfStartParagrah = tags.Count == 0 ? 0 : tags[0].MdTag == "#" ? 1 : 0;
 
         for (int i = indexIfStartParagrah; i < tags.Count; i++)
@@ -200,7 +189,7 @@ public class MdRender
                     {
                         flagTag = true;
                         firstTag.HtmlTag = $"{firstTag.HtmlTag}";
-                        secondTag.HtmlTag = $"/{secondTag.HtmlTag}";
+                        secondTag.HtmlTag = $"</{secondTag.HtmlTag.Substring(1)}";
                         secondTag.Convert = true;
                         break;
                     }
@@ -209,7 +198,7 @@ public class MdRender
                     {
                         flagTag = true;
                         firstTag.HtmlTag = $"{firstTag.HtmlTag}";
-                        secondTag.HtmlTag = $"/{secondTag.HtmlTag}";
+                        secondTag.HtmlTag = $"</{secondTag.HtmlTag.Substring(1)}";
                         secondTag.Convert = true;
                         break;
                     }
@@ -223,7 +212,7 @@ public class MdRender
             tags.Add(new Tag()
             {
                 MdTag = "#",
-                HtmlTag = "/<h1>",
+                HtmlTag = "</h1>",
             });
         }
 
@@ -237,7 +226,7 @@ public class MdRender
         var indexIfLastTagParagrah = tags.Count==0? 1 : tags[tags.Count - 1].MdTag == "#" ? 2 : 1;
         if (indexIfLastTagParagrah == 2)
         {
-            mdString.Append("/<h1>");
+            mdString.Append("</h1>");
         }
         for(int i = tags.Count - indexIfLastTagParagrah; i >= 0; i--)
         {

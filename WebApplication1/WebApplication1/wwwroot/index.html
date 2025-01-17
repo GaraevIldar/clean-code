@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Transfer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="profile-button">
+        <button onclick="openProfile()">Профиль</button>
+    </div>
+    <div class="container">
+        <div class="column">
+            <textarea id="inputText" placeholder="Введите текст..."></textarea>
+        </div>
+        <div class="buttons">
+            <button onclick="transferText()">Перевести</button>
+            <button onclick="loadFile()">Загрузить файл</button>
+            <button onclick="saveFile()">Сохранить файл</button>
+            <button onclick="saveFile()">Скачать файл </button>
+        </div>
+        <div class="column">
+            <div class="output" id="outputText"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
