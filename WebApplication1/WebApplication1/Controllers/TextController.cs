@@ -5,11 +5,11 @@ using WebApplication1.Services;
 [Route("api/[controller]")]
 public class TextController : ControllerBase
 {
-    private readonly HelperService _helperService;
+    private readonly TextService _textService;
 
-    public TextController(HelperService helperService)
+    public TextController(TextService textService)
     {
-        _helperService = helperService;
+        _textService = textService;
     }
     [HttpPost("process")]
     public IActionResult ProcessText([FromBody] TextRequest request)
@@ -19,7 +19,7 @@ public class TextController : ControllerBase
             return BadRequest("Текст не должен быть пустым.");
         }
 
-        var result = _helperService.ProcessText(request.Text);
+        var result = _textService.ProcessText(request.Text);
         return Ok(new { Output = result });
     }
 }

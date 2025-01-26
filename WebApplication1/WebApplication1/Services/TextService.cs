@@ -1,9 +1,9 @@
 using System.Text;
 using MdRenderFinal;
 
-namespace WebApplication1.Services;
+ namespace WebApplication1.Services;
 
-public class HelperService
+public class TextService
 {
     public string ProcessText(string input)
     {
