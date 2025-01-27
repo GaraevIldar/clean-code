@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,4 +22,6 @@ public class User
     public string UserSalt { get; set; } 
     
     public ICollection<UserDocument> UserDocuments { get; set; } = new List<UserDocument>();
+    
+    public ICollection<DocumentAccess> DocumentAccesses { get; set; } = new List<DocumentAccess>();
 }

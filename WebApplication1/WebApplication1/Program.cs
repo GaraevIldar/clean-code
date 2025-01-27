@@ -1,5 +1,10 @@
+using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using WebApplication1.Filters;
 using WebApplication1.Model;
 using WebApplication1.Services;
 
@@ -26,6 +31,14 @@ builder.Services.AddScoped<MinioService>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<TextService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ExceptionHandlingFilter>();
+builder.Services.AddScoped<RequestLoggingFilter>();
+builder.Services.AddScoped<AuthorizationFilter>();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.AddService<ExceptionHandlingFilter>();
+    options.Filters.AddService<RequestLoggingFilter>();
+});
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);

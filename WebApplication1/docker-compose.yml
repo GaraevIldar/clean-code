@@ -1,0 +1,34 @@
+﻿version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./WebApplication1
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__PostgresConnection=Host=localhost;Port=5432;Database=SemWorkASP;Username=postgres;Password=myhome1861
+      - Minio__Endpoint=minio:9000
+      - Minio__AccessKey=minioadmin
+      - Minio__SecretKey=minioadmin
+      - Minio__BucketName=semwork
+    depends_on:
+      - minio
+  
+  minio:
+    image: minio/minio:latest
+    container_name: minio-container
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9000:9000"
+    command: server /data
+    volumes:
+      - minio-data:/data
+
+volumes:
+  minio-data:
+    driver: local

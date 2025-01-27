@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Filters;
 using WebApplication1.Services;
 
 [ApiController]
 [Route("api/[controller]")]
+[ServiceFilter(typeof(ExceptionHandlingFilter))] 
+[ServiceFilter(typeof(RequestLoggingFilter))] 
 public class TextController : ControllerBase
 {
     private readonly TextService _textService;

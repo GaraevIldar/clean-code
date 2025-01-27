@@ -1,7 +1,12 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Filters;
 
 [ApiController]
 [Route("api/[controller]")]
+[ServiceFilter(typeof(ExceptionHandlingFilter))] 
+[ServiceFilter(typeof(RequestLoggingFilter))] 
 public class StorageController : ControllerBase
 {
     private readonly MinioService _minioService;
@@ -12,6 +17,7 @@ public class StorageController : ControllerBase
     }
 
     [HttpPost("upload-text")]
+    [ServiceFilter(typeof(AuthorizationFilter))] 
     public async Task<IActionResult> UploadText([FromBody] TextUploadRequest request)
     {
         if (string.IsNullOrEmpty(request.FileName) || string.IsNullOrEmpty(request.Text))
@@ -20,23 +26,12 @@ public class StorageController : ControllerBase
         }
 
         var username = HttpContext.Request.Cookies["username"];
-        if (string.IsNullOrEmpty(username))
-        {
-            return Unauthorized("User not authenticated.");
-        }
-
-        try
-        {
-            await _minioService.UploadTextAsync(request.FileName, request.Text, username);
-            return Ok("Text uploaded successfully.");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest($"Error: {ex.Message}");
-        }
+        await _minioService.UploadTextAsync(request.FileName, request.Text, username);
+        return Ok("Text uploaded successfully.");
     }
 
     [HttpGet("download-text/{fileName}")]
+    [ServiceFilter(typeof(AuthorizationFilter))] 
     public async Task<IActionResult> DownloadText(string fileName)
     {
         if (string.IsNullOrEmpty(fileName))
@@ -45,24 +40,8 @@ public class StorageController : ControllerBase
         }
 
         var username = HttpContext.Request.Cookies["username"];
-        if (string.IsNullOrEmpty(username))
-        {
-            return Unauthorized("User not authenticated.");
-        }
-
-        try
-        {
-            var text = await _minioService.GetTextAsync(fileName, username);
-            return Ok(text);
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return StatusCode(403, "You are not the owner of this document.");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest($"Error: {ex.Message}");
-        }
+        var text = await _minioService.GetTextAsync(fileName, username);
+        return Ok(text);
     }
 }
 

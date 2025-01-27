@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,4 +14,6 @@ public class Document
     public string DocumentName { get; set; }
     
     public ICollection<UserDocument> UserDocuments { get; set; }
+    
+    public ICollection<DocumentAccess> DocumentAccesses { get; set; } = new List<DocumentAccess>();
 }
