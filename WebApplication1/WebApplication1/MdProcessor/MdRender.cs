@@ -13,9 +13,17 @@ public class MdRender
     {
         var paragraphJoin = new List<string>();
         var paragraphsSplit = SplitTextIntoParagraphs(mdString.ToString());
-        var markList = ConvertMarkdownListToHtml(paragraphsSplit);
-        paragraphsSplit = SplitTextIntoParagraphs(markList);
         foreach (var paragraph in paragraphsSplit)
+        {
+            StringBuilder sb = new StringBuilder(paragraph);
+            var result = FilterAndModifyTags(SearchForTags(sb));
+            paragraphJoin.Add(ConvertMdToHtml(sb, result));
+        }
+        
+        var markList = ConvertMarkdownListToHtml(SplitTextIntoParagraphs(JoinParagraphs(paragraphJoin)));
+        var paragraphsSplit1 = SplitTextIntoParagraphs(markList);
+        paragraphJoin = new List<string>();
+        foreach (var paragraph in paragraphsSplit1)
         {
             StringBuilder sb = new StringBuilder(paragraph);
             var result = FilterAndModifyTags(SearchForTags(sb));

@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Transfer</title>
-    <link rel="stylesheet" href="styles1.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="roleForm" class="form-container" style="display:none;">
+    <h3>Укажите ник и роль пользователя</h3>
+    <!-- Поле для ввода ника пользователя -->
+    <input type="text" id="roleUsername" placeholder="Имя пользователя" required>
+    <input type="text" id="fileName" placeholder="Имя файла" required>
+    <!-- Выбор роли пользователя -->
+    <select id="userRole" required>
+        <option value="" disabled selected>Выберите роль</option>
+        <option value="editor">Редактор</option>
+        <option value="reader">Читатель</option>
+    </select>
+
+    <div class="form-actions">
+        <button onclick="addUserToFile()">Сохранить</button>
+        <button onclick="closeUserRoleForm()">Закрыть</button>
+    </div>
+</div>
 <div class="profile-button">
     <button onclick="openProfile()">Профиль</button>
     <button onclick="openRegister()">Регистрация</button>
@@ -50,15 +67,16 @@
     </div>
     <div class="buttons">
         <button onclick="transferText()">Перевести</button>
-        <button onclick="uploadToStorage()">Загрузить в хранилище</button>
-        <button onclick="downloadFromStorage()">Загрузить из хранилища</button>
+        <button onclick="uploadToStorage()" id="loadButton1" style="display: none;">Загрузить в хранилище</button>
+        <button onclick="downloadFromStorage()" id="loadButton2" style="display: none;">Загрузить из хранилища</button>
         <button onclick="saveFile()">Скачать файл </button>
+        <button onclick="openUserRoleForm()" id="loadButton3" style="display: none;">Выдать права </button>
     </div>
     <div class="column">
         <div class="output" id="outputText"></div>
     </div>
 </div>
 
-<script src="script1.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

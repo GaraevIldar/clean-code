@@ -8,18 +8,27 @@ public class MdRender
 {
     public static void Main(string[] args)
     {
-        var text = new StringBuilder("__aa__D_ddd__");
+        var text = new StringBuilder("_Вот список задач, которые нужно_ выполнить:\n\n- _Pакончить разработку веб-сайта_\n- Написать документацию\n- Протестировать API\n- Добавить новый функционал на сайт\n- Провести ревью кода\n- Подготовить отчет");
         var md = new MdRender();
-        Console.WriteLine(md.RenderHtml(text));
+        var result = md.RenderHtml(text);
+        Console.WriteLine(result);
     }
 
     public  string RenderHtml(StringBuilder mdString)
     {
         var paragraphJoin = new List<string>();
         var paragraphsSplit = SplitTextIntoParagraphs(mdString.ToString());
-        var markList = ConvertMarkdownListToHtml(paragraphsSplit);
-        paragraphsSplit = SplitTextIntoParagraphs(markList);
         foreach (var paragraph in paragraphsSplit)
+        {
+            StringBuilder sb = new StringBuilder(paragraph);
+            var result = FilterAndModifyTags(SearchForTags(sb));
+            paragraphJoin.Add(ConvertMdToHtml(sb, result));
+        }
+        
+        var markList = ConvertMarkdownListToHtml(SplitTextIntoParagraphs(JoinParagraphs(paragraphJoin)));
+        var paragraphsSplit1 = SplitTextIntoParagraphs(markList);
+        paragraphJoin = new List<string>();
+        foreach (var paragraph in paragraphsSplit1)
         {
             StringBuilder sb = new StringBuilder(paragraph);
             var result = FilterAndModifyTags(SearchForTags(sb));
@@ -160,10 +169,6 @@ public class MdRender
 
     private static List<Tag> FilterAndModifyTags(List<Tag> tags)
     {
-        foreach (var h in tags)
-        {
-            Console.WriteLine(h.HtmlTag);
-        }
         int indexIfStartParagrah = tags.Count == 0 ? 0 : tags[0].MdTag == "#" ? 1 : 0;
 
         for (int i = indexIfStartParagrah; i < tags.Count; i++)

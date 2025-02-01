@@ -1,9 +1,4 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Minio;
@@ -31,6 +26,60 @@ public class MinioService
         _httpContextAccessor = httpContextAccessor;
     }
 
+    public async Task<bool> GrantAccessToFile(UserFileAccessRequest request)
+    {
+        if (string.IsNullOrEmpty(request.UserName) || request.DocumentId == 0 || string.IsNullOrEmpty(request.Role))
+        {
+            throw new ArgumentException("All fields are required.");
+        }
+
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
+        if (user == null)
+        {
+            throw new Exception("User not found.");
+        }
+
+        var currentUserName = _httpContextAccessor.HttpContext?.Request.Cookies["username"];
+        if (string.IsNullOrEmpty(currentUserName))
+        {
+            throw new Exception("User not authenticated.");
+        }
+
+        var currentUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == currentUserName);
+        if (currentUser == null)
+        {
+            throw new Exception("Current user not found.");
+        }
+        
+        var documentAccess = await _dbContext.DocumentAccesses
+            .FirstOrDefaultAsync(da => da.DocumentId == request.DocumentId && da.UserId == currentUser.UserId);
+
+        if (documentAccess == null || documentAccess.Status != "creator")
+        {
+            throw new UnauthorizedAccessException("Only the creator can grant access.");
+        }
+
+        var existingAccess = await _dbContext.DocumentAccesses
+            .FirstOrDefaultAsync(da => da.DocumentId == request.DocumentId && da.UserId == user.UserId);
+
+        if (existingAccess != null)
+        {
+            throw new UnauthorizedAccessException("User already has access to this document.");
+        }
+
+        var newAccess = new DocumentAccess
+        {
+            DocumentId = request.DocumentId,
+            UserId = user.UserId,
+            Status = request.Role
+        };
+
+        _dbContext.DocumentAccesses.Add(newAccess);
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
 
     public async Task<bool> UploadTextAsync(string fileName, string text, string username)
     {
@@ -46,34 +95,50 @@ public class MinioService
             throw new Exception("User not authenticated.");
         }
 
-        var fileWithUser = $"{fileName}_{username}";
+        var fileWithUser = $"{fileName}";
 
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.UserName == username);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == username);
         if (user == null)
         {
             throw new Exception("User not found.");
         }
+        
+        var existingDocument = await _dbContext.Documents
+            .Include(d => d.DocumentAccesses)
+            .FirstOrDefaultAsync(d => d.DocumentName == fileWithUser);
 
-        var existingUserDocument = await _dbContext.UserDocuments
-            .Where(ud => ud.UserId == user.UserId)
-            .Join(_dbContext.Documents, ud => ud.DocumentId, d => d.DocumentId, (ud, d) => new { ud, d })
-            .Where(x => x.d.DocumentName == fileWithUser)
-            .FirstOrDefaultAsync();
-
-        if (existingUserDocument != null)
+        if (existingDocument != null)
         {
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(text)))
+            var userHasAccess = existingDocument.DocumentAccesses
+                .Any(da => da.UserId == user.UserId && (da.Status == "creator" || da.Status == "editor"));
+
+            if (!userHasAccess)
             {
-                await _minioClient.PutObjectAsync(new PutObjectArgs()
-                    .WithBucket(_bucketName)
-                    .WithObject(fileWithUser)
-                    .WithStreamData(stream)
-                    .WithObjectSize(stream.Length));
+                throw new UnauthorizedAccessException("A file with this name already exists for another user.");
             }
-
-            return true;
         }
+        
+        if (existingDocument == null)
+        {
+            var newDocument = new Document
+            {
+                DocumentName = fileWithUser
+            };
 
+            await _dbContext.AddAsync(newDocument);
+            await _dbContext.SaveChangesAsync();
+            
+            var documentAccess = new DocumentAccess
+            {
+                UserId = user.UserId,
+                DocumentId = newDocument.DocumentId,
+                Status = "creator"
+            };
+
+            await _dbContext.AddAsync(documentAccess);
+            await _dbContext.SaveChangesAsync();
+        }
+        
         using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(text)))
         {
             await _minioClient.PutObjectAsync(new PutObjectArgs()
@@ -82,23 +147,6 @@ public class MinioService
                 .WithStreamData(stream)
                 .WithObjectSize(stream.Length));
         }
-
-        var document = new Document
-        {
-            DocumentName = fileWithUser
-        };
-
-        await _dbContext.AddAsync(document);
-        await _dbContext.SaveChangesAsync();
-
-        var userDocument = new UserDocument
-        {
-            UserId = user.UserId,
-            DocumentId = document.DocumentId
-        };
-
-        await _dbContext.AddAsync(userDocument);
-        await _dbContext.SaveChangesAsync();
 
         return true;
     }
@@ -116,28 +164,37 @@ public class MinioService
             throw new Exception("User not authenticated.");
         }
 
-        var fileWithUser = $"{fileName}_{username}";
+        var fileWithUser = $"{fileName}";
 
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.UserName == username);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == username);
         if (user == null)
         {
             throw new Exception("User not found.");
         }
-
+        
         var document = await _dbContext.Documents
             .Include(d => d.UserDocuments)
-            .SingleOrDefaultAsync(d => d.DocumentName == fileWithUser);
+            .FirstOrDefaultAsync(d => d.DocumentName == fileWithUser);
 
         if (document == null)
         {
             throw new Exception("Document not found.");
         }
+        
+        var documentAccess = await _dbContext.DocumentAccesses
+            .FirstOrDefaultAsync(da => da.UserId == user.UserId && da.DocumentId == document.DocumentId);
 
-        if (!document.UserDocuments.Any(ud => ud.UserId == user.UserId))
+        if (documentAccess == null)
         {
-            throw new UnauthorizedAccessException("User is not the owner of this document.");
+            throw new UnauthorizedAccessException("User does not have access to this document.");
         }
-
+        
+        if (documentAccess.Status != "creator" && documentAccess.Status != "editor" &&
+            documentAccess.Status != "reader")
+        {
+            throw new UnauthorizedAccessException("User does not have permission to read this document.");
+        }
+        
         var stream = new MemoryStream();
         await _minioClient.GetObjectAsync(new GetObjectArgs()
             .WithBucket(_bucketName)

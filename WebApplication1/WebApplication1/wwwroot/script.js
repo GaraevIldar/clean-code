@@ -2,19 +2,28 @@ function updateUIAfterAuth(isLoggedIn) {
     const profileButton = document.querySelector('.profile-button button:nth-child(1)');
     const registerButton = document.querySelector('.profile-button button:nth-child(2)');
     const loginButton = document.querySelector('.profile-button button:nth-child(3)');
+    const loadButton1 = document.getElementById('loadButton1')
+    const loadButton2 = document.getElementById('loadButton2')
+    const loadButton3 = document.getElementById('loadButton3')
 
     if (isLoggedIn) {
-        profileButton.style.display = 'inline'; 
-        registerButton.style.display = 'none';  
-        loginButton.style.display = 'none';     
+        profileButton.style.display = 'inline';
+        registerButton.style.display = 'none';
+        loginButton.style.display = 'none';
+        loadButton1.style.display = 'block';
+        loadButton2.style.display = 'block';
+        loadButton3.style.display = 'block';
     } else {
-        profileButton.style.display = 'none';   
-        registerButton.style.display = 'inline'; 
-        loginButton.style.display = 'inline';   
+        profileButton.style.display = 'none';
+        registerButton.style.display = 'inline';
+        loginButton.style.display = 'inline';
+        loadButton1.style.display = 'none';
+        loadButton2.style.display = 'none';
+        loadButton3.style.display = 'none';
     }
 }
 function uploadToStorage() {
-    const fileName = prompt("Введите имя файла для сохранения:", "input.txt"); 
+    const fileName = prompt("Введите имя файла для сохранения:", ""); 
     const text = document.getElementById("inputText").value;
 
     if (!fileName || !text) {
@@ -35,11 +44,13 @@ function uploadToStorage() {
         .then(response => {
             if (response.ok) {
                 alert(`Текст успешно загружен в файл: ${fileName}`);
-            } else {
+            }
+            else {
                 return response.text().then(err => {
                     throw new Error(err);
                 });
             }
+            
         })
         .catch(error => {
             alert("Ошибка загрузки: " + error.message);
@@ -197,6 +208,80 @@ function logoutUser() {
             alert(error.message);
         });
 }
+function openUserRoleForm() {
+    const username = getCookie("username");
+
+    if (username) {
+        // Показываем форму выбора роли
+        document.getElementById('roleForm').style.display = 'block';
+
+        // Очистим поля формы
+        document.getElementById('roleUsername').value = username;
+        document.getElementById('userRole').selectedIndex = 0; // Сбросить выбранную роль
+    } else {
+        alert("Пожалуйста, авторизуйтесь, чтобы назначить роль.");
+    }
+}
+function closeUserRoleForm() {
+    // Закрыть форму выбора роли
+    document.getElementById('roleForm').style.display = 'none';
+
+    // Очистить поля формы
+    document.getElementById('roleUsername').value = '';
+    document.getElementById('userRole').selectedIndex = 0;
+}
+function addUserToFile() {
+    const userName = document.getElementById('roleUsername').value;
+    const fileName = document.getElementById('fileName').value;
+    const role = document.getElementById('userRole').value;
+
+    if (!userName || !fileName || !role) {
+        alert("Все поля должны быть заполнены!");
+        return;
+    }
+
+    // Получаем DocumentId по имени файла
+    fetch(`http://localhost:5000/api/storage/get-document-id?fileName=${fileName}`, {
+        method: 'GET',
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.text().then(err => { throw new Error(err); });
+            }
+        })
+        .then(data => {
+            const documentId = data.documentId;
+
+            // Теперь отправляем данные на сервер для добавления доступа
+            fetch('http://localhost:5000/api/storage/grant-access', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    documentId: documentId,  // ID документа
+                    role: role
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Доступ успешно добавлен!");
+                    } else {
+                        response.text().then(err => alert(err));
+                    }
+                })
+                .catch(error => {
+                    alert('Ошибка: ' + error.message);
+                });
+        })
+        .catch(error => {
+            alert('Ошибка: не удалось найти файл по имени.' + error.message);
+        });
+}
+
 
 function openRegister() {
     document.getElementById('registerForm').style.display = 'block';
@@ -249,29 +334,36 @@ function transferText() {
         })
         .then(data => {
             const outputText = document.getElementById('outputText');
-            outputText.textContent = data.output;
+            outputText.innerHTML = data.output; // Вставка HTML-кода
+
+            // Добавляем кнопку копирования
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Скопировать';
+            copyButton.onclick = function () {
+                copyToClipboard(data.output);
+            };
+
+            // Очищаем предыдущее содержимое и добавляем новый текст + кнопку
+            outputText.innerHTML = '';
+            outputText.appendChild(document.createElement('div')).innerHTML = data.output;
+            outputText.appendChild(copyButton);
         })
         .catch(error => {
             alert('Ошибка: ' + error.message);
         });
 }
 
-function loadFile() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'text/plain';
-    input.onchange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('inputText').value = e.target.result;
-            };
-            reader.readAsText(file);
-        }
-    };
-    input.click();
+function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Текст скопирован в буфер обмена!');
 }
+
+
 
 function saveFile() {
     const text = document.getElementById('outputText').textContent;
