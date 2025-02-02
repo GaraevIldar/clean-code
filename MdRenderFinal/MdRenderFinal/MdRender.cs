@@ -8,22 +8,34 @@ public class MdRender
 {
     public static void Main(string[] args)
     {
+        var text = new StringBuilder("_Вот список задач, которые нужно_ выполнить:\n\n- _Pакончить разработку веб-сайта_\n- Написать документацию\n- Протестировать API\n- Добавить новый функционал на сайт\n- Провести ревью кода\n- Подготовить отчет");
+        var md = new MdRender();
+        var result = md.RenderHtml(text);
+        Console.WriteLine(result);
     }
 
-    public  string RenderHtml(StringBuilder mdString)
+    public string RenderHtml(StringBuilder markdownText)
     {
-        var paragraphJoin = new List<string>();
-        var paragraphsSplit = SplitTextIntoParagraphs(mdString.ToString());
-        var markList = ConvertMarkdownListToHtml(paragraphsSplit);
-        paragraphsSplit = SplitTextIntoParagraphs(markList);
-        foreach (var paragraph in paragraphsSplit)
-        {
-            StringBuilder sb = new StringBuilder(paragraph);
-            var result = FilterAndModifyTags(SearchForTags(sb));
-            paragraphJoin.Add(ConvertMdToHtml(sb, result));
-        }
+        var paragraphs = SplitTextIntoParagraphs(markdownText.ToString());
+        var processedParagraphs = ProcessParagraphs(paragraphs);
 
-        return JoinParagraphs(paragraphJoin);
+        var markdownListHtml = ConvertMarkdownListToHtml(processedParagraphs);
+        var finalParagraphs = SplitTextIntoParagraphs(markdownListHtml);
+
+        return JoinParagraphs(finalParagraphs);
+    }
+
+    private List<string> ProcessParagraphs(List<string> paragraphs)
+    {
+        var result = new List<string>();
+        foreach (var paragraph in paragraphs)
+        {
+            var sb = new StringBuilder(paragraph);
+            var tags = SearchForTags(sb);
+            var modifiedTags = FilterAndModifyTags(tags);
+            result.Add(ConvertMdToHtml(sb, modifiedTags));
+        }
+        return result;
     }
     
 

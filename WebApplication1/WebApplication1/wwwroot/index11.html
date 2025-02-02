@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Transfer</title>
+    <link rel="stylesheet" href="styles11.css">
+</head>
+<body>
+<div id="overlay" class="overlay"></div>
+
+<div id="roleForm" class="form-container" style="display:none;">
+    <h3>Укажите ник и роль пользователя</h3>
+    <input type="text" id="roleUsername" placeholder="Имя пользователя" required>
+    <input type="text" id="fileName" placeholder="Имя файла" required>
+    <select id="userRole" required>
+        <option value="" disabled selected>Выберите роль</option>
+        <option value="editor">Редактор</option>
+        <option value="reader">Читатель</option>
+    </select>
+
+    <div class="form-actions">
+        <button onclick="addUserToFile()">Сохранить</button>
+        <button onclick="closeUserRoleForm()">Закрыть</button>
+    </div>
+</div>
+<div class="profile-button">
+    <button onclick="openProfile()">Профиль</button>
+    <button onclick="openRegister()">Регистрация</button>
+    <button onclick="openLogin()">Авторизация</button>
+</div>
+
+<div id="registerForm" class="form-container" style="display:none;">
+    <h3>Регистрация</h3>
+    <input type="text" id="registerUsername" placeholder="Имя пользователя" required>
+    <input type="password" id="registerPassword" placeholder="Пароль" required>
+    <div class="form-actions">
+        <button onclick="registerUser()">Зарегистрироваться</button>
+        <button onclick="closeForm('registerForm')">Закрыть</button>
+    </div>
+    <div id="passwordValidationError" style="display: none;">Пароль должен быть минимум 8 символов и содержать хотя бы одну цифру, одну заглавную букву и один специальный символ.</div>
+</div>
+
+<div id="loginForm" class="form-container" style="display:none;">
+    <h3>Авторизация</h3>
+    <input type="text" id="loginUsername" placeholder="Имя пользователя" required>
+    <input type="password" id="loginPassword" placeholder="Пароль" required>
+    <div class="form-actions">
+        <button onclick="loginUser()">Войти</button>
+        <button onclick="closeForm('loginForm')">Закрыть</button>
+    </div>
+</div>
+
+
+<div id="profileModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Профиль</h3>
+        <p id="profileUsername"></p>
+        <button onclick="showUserDocuments()">Показать документы</button>
+        <button onclick="logoutUser()">Выйти</button>
+        <button onclick="closeProfile()">Закрыть</button>
+    </div>
+</div>
+
+<div id="documentsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Мои документы</h3>
+        <ul id="documentsList"></ul> <!-- Список документов -->
+        <button onclick="closeDocumentsModal()">Закрыть</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="column">
+        <textarea id="inputText" placeholder="Введите текст..."></textarea>
+    </div>
+    <div class="buttons">
+        <button onclick="transferText()">Перевести</button>
+        <button onclick="uploadToStorage()" id="loadButton1" style="display: none;">Загрузить в хранилище</button>
+        <button onclick="downloadFromStorage()" id="loadButton2" style="display: none;">Загрузить из хранилища</button>
+        <button onclick="openUserRoleForm()" id="loadButton3" style="display: none;">Выдать права </button>
+    </div>
+    <div class="column">
+        <div class="output" id="outputText"></div>
+    </div>
+</div>
+
+<script src="script11.js"></script>
+</body>
+</html>

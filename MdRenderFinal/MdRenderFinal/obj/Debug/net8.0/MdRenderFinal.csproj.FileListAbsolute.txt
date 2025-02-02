@@ -1,0 +1,15 @@
+D:\clean-code\MdRenderFinal\MdRenderFinal\bin\Debug\net8.0\MdRenderFinal.exe
+D:\clean-code\MdRenderFinal\MdRenderFinal\bin\Debug\net8.0\MdRenderFinal.deps.json
+D:\clean-code\MdRenderFinal\MdRenderFinal\bin\Debug\net8.0\MdRenderFinal.runtimeconfig.json
+D:\clean-code\MdRenderFinal\MdRenderFinal\bin\Debug\net8.0\MdRenderFinal.dll
+D:\clean-code\MdRenderFinal\MdRenderFinal\bin\Debug\net8.0\MdRenderFinal.pdb
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.GeneratedMSBuildEditorConfig.editorconfig
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.AssemblyInfoInputs.cache
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.AssemblyInfo.cs
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.csproj.CoreCompileInputs.cache
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.sourcelink.json
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.dll
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\refint\MdRenderFinal.dll
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.pdb
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\MdRenderFinal.genruntimeconfig.cache
+D:\clean-code\MdRenderFinal\MdRenderFinal\obj\Debug\net8.0\ref\MdRenderFinal.dll
