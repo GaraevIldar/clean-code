@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterLoginRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
             return BadRequest("Логин и пароль обязательны.");
@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] RegisterLoginRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
             return BadRequest("Логин и пароль обязательны.");
@@ -83,13 +83,7 @@ public class AuthController : ControllerBase
 
 }
 
-public class RegisterRequest
-{
-    public string UserName { get; set; }
-    public string Password { get; set; }
-}
-
-public class LoginRequest
+public class RegisterLoginRequest
 {
     public string UserName { get; set; }
     public string Password { get; set; }

@@ -8,7 +8,7 @@ public class MdRender: IMdRender
 {
     public static void Main(string[] args)
     {
-        var text = new StringBuilder("_Вот список задач, которые нужно_ выполнить:\n\n- _Pакончить разработку веб-сайта_\n- Написать документацию\n- Протестировать API\n- Добавить новый функционал на сайт\n- Провести ревью кода\n- Подготовить отчет");
+        var text = new StringBuilder("\\_Вот список задач, которые нужно_ выполнить:\n\n- _Pакончить разработку веб-сайта_\n- Написать документацию\n- Протестировать API\n- Добавить новый функционал на сайт\n- Провести ревью кода\n- Подготовить отчет");
         var md = new MdRender();
         var result = md.RenderHtml(text);
         Console.WriteLine(result);
