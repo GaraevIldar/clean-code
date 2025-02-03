@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Transfer</title>
-    <link rel="stylesheet" href="styles11.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="overlay" class="overlay"></div>
@@ -79,12 +79,14 @@
         <button onclick="uploadToStorage()" id="loadButton1" style="display: none;">Загрузить в хранилище</button>
         <button onclick="downloadFromStorage()" id="loadButton2" style="display: none;">Загрузить из хранилища</button>
         <button onclick="openUserRoleForm()" id="loadButton3" style="display: none;">Выдать права </button>
+        <button onclick="saveFile()">Скачать файл </button>
+        <button onclick="copyToClipboard()">Скопировать текст </button>
     </div>
     <div class="column">
         <div class="output" id="outputText"></div>
     </div>
 </div>
 
-<script src="script11.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

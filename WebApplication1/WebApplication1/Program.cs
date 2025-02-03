@@ -52,6 +52,6 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.MapControllers();
-app.MapFallbackToFile("index11.html");
+app.MapFallbackToFile("index.html");
 
 app.Run();

@@ -55,6 +55,6 @@ D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\refint\WebApplica
 D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\WebApplication1.pdb
 D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\WebApplication1.genruntimeconfig.cache
 D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\ref\WebApplication1.dll
-D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\h8r12wslvj-x79o78w5sm.gz
-D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\qbt2hc39ua-y59cxytz33.gz
-D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\79ll78owcm-bxvcb51nmu.gz
+D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\5hwdg3sa8t-w0uba6jq8z.gz
+D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\nyv7wr2by3-u6eon03f5x.gz
+D:\clean-code\WebApplication1\WebApplication1\obj\Debug\net9.0\compressed\ixdnk61dwv-y59cxytz33.gz

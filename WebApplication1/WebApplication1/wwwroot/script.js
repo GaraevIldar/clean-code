@@ -95,7 +95,7 @@ function uploadToStorage() {
 }
 
 function downloadFromStorage() {
-    const fileName = prompt("Введите имя файла для загрузки:", "input.txt");
+    const fileName = prompt("Введите имя файла для загрузки:", "");
 
     if (!fileName) {
         alert("Имя файла не может быть пустым!");
@@ -376,32 +376,24 @@ function transferText() {
         })
         .then(data => {
             const outputText = document.getElementById('outputText');
-            outputText.innerHTML = data.output; 
-            
-            const copyButton = document.createElement('button');
-            copyButton.textContent = 'Скопировать';
-            copyButton.onclick = function () {
-                copyToClipboard(data.output);
-            };
-            
-            outputText.innerHTML = '';
-            outputText.appendChild(document.createElement('div')).innerHTML = data.output;
-            outputText.appendChild(copyButton);
+            outputText.innerHTML = data.output;
         })
         .catch(error => {
             alert('Ошибка: ' + error.message);
         });
 }
 
-function copyToClipboard(text) {
+function copyToClipboard() {
+    const htmlContent = document.getElementById('outputText').innerHTML; 
     const textarea = document.createElement('textarea');
-    textarea.value = text;
+    textarea.value = htmlContent;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert('Текст скопирован в буфер обмена!');
+    alert('HTML-код скопирован в буфер обмена!');
 }
+
 
 
 function showOverlay() {
@@ -409,4 +401,12 @@ function showOverlay() {
 }
 function hideOverlay() {
     document.getElementById('overlay').style.display = 'none';
+}
+function saveFile() {
+    const text = document.getElementById('outputText').innerHTML;
+    const blob = new Blob([text], { type: 'text/html' }); 
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'output.html'; 
+    link.click();
 }
