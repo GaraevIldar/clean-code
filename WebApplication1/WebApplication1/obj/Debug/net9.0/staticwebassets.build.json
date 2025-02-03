@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZqQ2Ww93M7maicVZj4FocbVtStcp8vKgZJhuE4cGsAY=",
+  "Hash": "bMdqO2vwIA1i31h2kcEBmpCjMrQr1Qc5jMFUJuGPnMY=",
   "Source": "WebApplication1",
   "BasePath": "_content/WebApplication1",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-c34wivgzha.gz",
+      "Identity": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-bxvcb51nmu.gz",
       "SourceId": "WebApplication1",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/WebApplication1",
-      "RelativePath": "script11#[.{fingerprint=c34wivgzha}]?.js.gz",
+      "RelativePath": "script11#[.{fingerprint=bxvcb51nmu}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -31,8 +31,8 @@
       "RelatedAsset": "D:\\clean-code\\WebApplication1\\WebApplication1\\wwwroot\\script11.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "m6ynh0bil0",
-      "Integrity": "MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE=",
+      "Fingerprint": "ah3iuas6xo",
+      "Integrity": "4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\clean-code\\WebApplication1\\WebApplication1\\wwwroot\\script11.js"
@@ -115,8 +115,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "c34wivgzha",
-      "Integrity": "uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg=",
+      "Fingerprint": "bxvcb51nmu",
+      "Integrity": "YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\script11.js"
@@ -443,13 +443,13 @@
       ]
     },
     {
-      "Route": "script11.c34wivgzha.js",
-      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-c34wivgzha.gz",
+      "Route": "script11.bxvcb51nmu.js",
+      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-bxvcb51nmu.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000337837838"
+          "Quality": "0.000358680057"
         }
       ],
       "ResponseHeaders": [
@@ -459,15 +459,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2959"
+          "Value": "2787"
         },
         {
           "Name": "ETag",
-          "Value": "\"MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE=\""
+          "Value": "\"4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -487,13 +487,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg=\""
+          "Value": "W/\"YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "c34wivgzha"
+          "Value": "bxvcb51nmu"
         },
         {
           "Name": "label",
@@ -501,12 +501,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg="
+          "Value": "sha256-YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU="
         }
       ]
     },
     {
-      "Route": "script11.c34wivgzha.js",
+      "Route": "script11.bxvcb51nmu.js",
       "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\wwwroot\\script11.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -516,7 +516,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "14046"
+          "Value": "13535"
         },
         {
           "Name": "Content-Type",
@@ -524,11 +524,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg=\""
+          "Value": "\"YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -538,7 +538,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "c34wivgzha"
+          "Value": "bxvcb51nmu"
         },
         {
           "Name": "label",
@@ -546,13 +546,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg="
+          "Value": "sha256-YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU="
         }
       ]
     },
     {
-      "Route": "script11.c34wivgzha.js.gz",
-      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-c34wivgzha.gz",
+      "Route": "script11.bxvcb51nmu.js.gz",
+      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-bxvcb51nmu.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -561,7 +561,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2959"
+          "Value": "2787"
         },
         {
           "Name": "Content-Type",
@@ -569,11 +569,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE=\""
+          "Value": "\"4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -591,7 +591,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "c34wivgzha"
+          "Value": "bxvcb51nmu"
         },
         {
           "Name": "label",
@@ -599,18 +599,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE="
+          "Value": "sha256-4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I="
         }
       ]
     },
     {
       "Route": "script11.js",
-      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-c34wivgzha.gz",
+      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-bxvcb51nmu.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000337837838"
+          "Quality": "0.000358680057"
         }
       ],
       "ResponseHeaders": [
@@ -620,15 +620,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2959"
+          "Value": "2787"
         },
         {
           "Name": "ETag",
-          "Value": "\"MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE=\""
+          "Value": "\"4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -648,13 +648,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg=\""
+          "Value": "W/\"YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg="
+          "Value": "sha256-YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU="
         }
       ]
     },
@@ -669,7 +669,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "14046"
+          "Value": "13535"
         },
         {
           "Name": "Content-Type",
@@ -677,11 +677,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg=\""
+          "Value": "\"YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -691,13 +691,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-uMoqE8MX2csZnnl78hnrToHTnN6QkfulthCjCydAbEg="
+          "Value": "sha256-YeQi0fDpAI7TCe+OuF/6VrcIaIgqwRx47oRODm6vPnU="
         }
       ]
     },
     {
       "Route": "script11.js.gz",
-      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-c34wivgzha.gz",
+      "AssetFile": "D:\\clean-code\\WebApplication1\\WebApplication1\\obj\\Debug\\net9.0\\compressed\\79ll78owcm-bxvcb51nmu.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -706,7 +706,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2959"
+          "Value": "2787"
         },
         {
           "Name": "Content-Type",
@@ -714,11 +714,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE=\""
+          "Value": "\"4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 02 Feb 2025 23:00:14 GMT"
+          "Value": "Sun, 02 Feb 2025 23:31:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -736,7 +736,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-MhKQ1wDWdyHvTONWdEAIoQn7VfCb7tjIh+bV+7y3RyE="
+          "Value": "sha256-4pdbwcul5gj4OmjT+X9ipNJ1L+RT2yFro6dQ323Yj+I="
         }
       ]
     },

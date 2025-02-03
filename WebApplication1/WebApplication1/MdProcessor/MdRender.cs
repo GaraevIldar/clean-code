@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MdRenderFinal;
 
-public class MdRender
+public class MdRender: IMdRender
 {
 
     public string RenderHtml(StringBuilder markdownText)

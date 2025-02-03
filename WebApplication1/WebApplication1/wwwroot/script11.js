@@ -23,7 +23,7 @@ function updateUIAfterAuth(isLoggedIn) {
     }
 }
 async function showUserDocuments() {
-    const userName = document.getElementById('loginUsername').value;  // Получаем имя пользователя из input
+    const userName = document.getElementById('loginUsername').value;  
 
     if (!userName) {
         alert('Введите имя пользователя');
@@ -31,22 +31,19 @@ async function showUserDocuments() {
     }
 
     try {
-        // Запрос на сервер для получения документов по имени пользователя
         const response = await fetch(`/documents/by-username/${userName}`);
 
         if (response.ok) {
             const documents = await response.json();
             const documentsList = document.getElementById('documentsList');
-            documentsList.innerHTML = ''; // Очищаем список перед добавлением новых элементов
-
-            // Добавляем каждый документ в список
+            documentsList.innerHTML = ''; 
+            
             documents.forEach(doc => {
                 const listItem = document.createElement('li');
-                listItem.textContent = doc.documentName; // предполагаем, что у вас есть поле 'documentName'
+                listItem.textContent = doc.documentName;
                 documentsList.appendChild(listItem);
             });
-
-            // Показываем модальное окно с документами
+            
             document.getElementById('documentsModal').style.display = 'block';
         } else if (response.status === 404) {
             alert('Пользователь не найден.');

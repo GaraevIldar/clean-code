@@ -4,7 +4,7 @@ using System.Threading.Channels;
 
 namespace MdRenderFinal;
 
-public class MdRender
+public class MdRender: IMdRender
 {
     public static void Main(string[] args)
     {

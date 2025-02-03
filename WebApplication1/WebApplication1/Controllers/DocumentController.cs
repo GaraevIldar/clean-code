@@ -14,22 +14,19 @@ public class DocumentController : Controller
         _documentService = documentService;
         _context = dbContext;
     }
-
-    // Изменено на возвращение JSON, а не View
+    
     [HttpGet("documents/by-username/{userName}")]
     public async Task<IActionResult> GetDocumentsByUserName(string userName)
     {
         try
         {
-            // Ищем пользователя по имени
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
         
             if (user == null)
             {
                 return NotFound("Пользователь не найден.");
             }
-
-            // Получаем документы пользователя
+            
             var documents = await _documentService.GetUserDocumentsWithCreatorOrEditorStatusAsync(user.UserId);
         
             return Ok(documents);
